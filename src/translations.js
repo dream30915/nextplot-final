@@ -1,0 +1,47 @@
+export const translations = {
+  th: {
+    'nav.properties':'ที่ดิน','nav.contact':'ติดต่อ','nav.landsmaps':'LandsMaps','nav.login':'เข้าสู่ระบบ',
+    'hero.title':'บริการซื้อ‑ขาย‑เช่า และ ขายฝาก รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร',
+    'hero.description':'บ้าน อาคารพาณิช ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย เข้าถึงได้ ฟอร์มลูกค้า (PDPA) และระบบขอเอกสารแบบ Soft Gate',
+    'hero.cta.viewAll':'ดูที่ดินทั้งหมด','hero.cta.contact':'ติดต่อเรา',
+    'search.placeholder':'ค้นหาที่ดิน...','filter.location':'ทำเล','filter.priceMin':'ราคาต่ำสุด','filter.priceMax':'ราคาสูงสุด',
+    'filter.areaMin':'พื้นที่ต่ำสุด','filter.areaMax':'พื้นที่สูงสุด','filter.apply':'ค้นหา','filter.clear':'ล้างตัวกรอง',
+    'filter.status.all':'ทั้งหมด','status.available':'ว่าง','status.reserved':'จอง','status.sold':'ขายแล้ว',
+    'sort.latest':'ล่าสุด','sort.priceAsc':'ราคาต่ำ - สูง','sort.priceDesc':'ราคาสูง - ต่ำ',
+    'property.price':'ราคา','property.area':'พื้นที่','property.zoning':'สีผัง','property.tags':'แท็ก',
+    'property.viewDetails':'ดูรายละเอียด','property.share':'แชร์','property.favorite':'บันทึกไว้','property.contact':'ติดต่อสอบถาม',
+    'form.name':'ชื่อ','form.phone':'เบอร์โทร','form.email':'อีเมล','form.message':'ข้อความ','form.submit':'ส่ง',
+    'form.pdpa':'ข้าพเจ้ายินยอมตามนโยบายความเป็นส่วนตัว','form.success':'ส่งข้อมูลสำเร็จ','form.fail':'กรอกข้อมูลไม่ครบ',
+    'area.tooltip':'1 ไร่ = 4 งาน = 400 ตร.วา; 1 ตร.วา = 4 ตร.ม.'
+  },
+  en: {
+    'nav.properties':'Properties','nav.contact':'Contact','nav.landsmaps':'LandsMaps','nav.login':'Login',
+    'hero.title':'Buy • Sell • Rent & Consignment Land Nationwide',
+    'hero.description':'Houses, Commercial Buildings, Land, Warehouses, Factories with multi-channel sharing, secure & PDPA soft gate forms.',
+    'hero.cta.viewAll':'View All Properties','hero.cta.contact':'Contact Us',
+    'search.placeholder':'Search properties...','filter.location':'Location','filter.priceMin':'Min Price','filter.priceMax':'Max Price',
+    'filter.areaMin':'Min Area','filter.areaMax':'Max Area','filter.apply':'Search','filter.clear':'Clear Filters',
+    'filter.status.all':'All','status.available':'Available','status.reserved':'Reserved','status.sold':'Sold',
+    'sort.latest':'Latest','sort.priceAsc':'Price Low - High','sort.priceDesc':'Price High - Low',
+    'property.price':'Price','property.area':'Area','property.zoning':'Zoning','property.tags':'Tags',
+    'property.viewDetails':'View Details','property.share':'Share','property.favorite':'Save','property.contact':'Contact',
+    'form.name':'Name','form.phone':'Phone','form.email':'Email','form.message':'Message','form.submit':'Submit',
+    'form.pdpa':'I consent to the privacy policy','form.success':'Submitted','form.fail':'Incomplete form',
+    'area.tooltip':'1 Rai = 4 Ngan = 400 Sq.wah; 1 Sq.wah = 4 Sq.m.'
+  },
+  zh: {
+    'nav.properties':'房产','nav.contact':'联系','nav.landsmaps':'LandsMaps','nav.login':'登录',
+    'hero.title':'全国范围内土地买卖租赁与寄售服务',
+    'hero.description':'住宅、商业建筑、土地、仓库、工厂，多渠道分享，安全合规，含PDPA软门文档。',
+    'hero.cta.viewAll':'查看所有房源','hero.cta.contact':'联系我们',
+    'search.placeholder':'搜索房产...','filter.location':'位置','filter.priceMin':'最低价','filter.priceMax':'最高价',
+    'filter.areaMin':'最小面积','filter.areaMax':'最大面积','filter.apply':'搜索','filter.clear':'清除',
+    'filter.status.all':'全部','status.available':'可售','status.reserved':'预订','status.sold':'已售',
+    'sort.latest':'最新','sort.priceAsc':'价格 低→高','sort.priceDesc':'价格 高→低',
+    'property.price':'价格','property.area':'面积','property.zoning':'区划','property.tags':'标签',
+    'property.viewDetails':'查看详情','property.share':'分享','property.favorite':'收藏','property.contact':'联系',
+    'form.name':'姓名','form.phone':'电话','form.email':'邮箱','form.message':'留言','form.submit':'提交',
+    'form.pdpa':'我同意隐私政策','form.success':'提交成功','form.fail':'表单不完整',
+    'area.tooltip':'1莱 =4岸 =400平方哇；1平方哇=4平方米'
+  }
+}
