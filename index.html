@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<title>NextPlot Modular</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="NextPlot Multi-file Modular Version" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">ข้ามไปเนื้อหา</a>
+
+<header class="site-header">
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-logo">NP</div>
+      <div class="brand-text">
+        <div class="brand-name">NextPlot</div>
+        <div class="brand-tagline">PLOT FOR SALE</div>
+      </div>
+    </div>
+    <div class="top-controls">
+      <div id="langSwitch" class="lang-switch"></div>
+      <button id="themeBtn" class="btn-ghost" aria-label="Toggle Theme">🌙</button>
+      <button id="authBtn" class="btn-outline" data-i18n="nav.login">เข้าสู่ระบบ</button>
+    </div>
+  </div>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="#properties" data-i18n="nav.properties">ที่ดิน</a>
+    <a href="#contact" data-i18n="nav.contact">ติดต่อ</a>
+    <a href="https://landsmaps.dol.go.th/" target="_blank" rel="noopener" data-i18n="nav.landsmaps">LandsMaps</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="hero.title">บริการซื้อ‑ขาย‑เช่า และ ขายฝาก รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร</h1>
+  <p class="hero-desc" data-i18n="hero.description">
+    บ้าน อาคารพาณิช ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย เข้าถึงได้ ฟอร์มลูกค้า (PDPA) และระบบขอเอกสารแบบ Soft Gate
+  </p>
+  <div class="hero-cta">
+    <button class="btn" data-i18n="hero.cta.viewAll" id="viewAllBtn">ดูที่ดินทั้งหมด</button>
+    <button class="btn btn-outline" data-i18n="hero.cta.contact" id="contactBtn">ติดต่อเรา</button>
+  </div>
+</section>
+
+<main id="main" class="main-section">
+  <section id="filtersSection">
+    <div class="filters">
+      <input id="fKeyword" placeholder="ค้นหา..." data-i18n-ph="search.placeholder">
+      <input id="fLocation" placeholder="ทำเล" data-i18n-ph="filter.location">
+      <input id="fPriceMin" placeholder="ราคาต่ำสุด" type="number" data-i18n-ph="filter.priceMin">
+      <input id="fPriceMax" placeholder="ราคาสูงสุด" type="number" data-i18n-ph="filter.priceMax">
+      <input id="fAreaMin" placeholder="พื้นที่ต่ำสุด (ไร่)" type="number" data-i18n-ph="filter.areaMin">
+      <input id="fAreaMax" placeholder="พื้นที่สูงสุด (ไร่)" type="number" data-i18n-ph="filter.areaMax">
+      <select id="fStatus">
+        <option value="all" data-i18n="filter.status.all">ทั้งหมด</option>
+        <option value="available" data-i18n="status.available">ว่าง</option>
+        <option value="reserved" data-i18n="status.reserved">จอง</option>
+        <option value="sold" data-i18n="status.sold">ขายแล้ว</option>
+      </select>
+      <select id="fSort">
+        <option value="latest" data-i18n="sort.latest">ล่าสุด</option>
+        <option value="priceAsc" data-i18n="sort.priceAsc">ราคาต่ำ - สูง</option>
+        <option value="priceDesc" data-i18n="sort.priceDesc">ราคาสูง - ต่ำ</option>
+      </select>
+      <div class="filter-actions">
+        <button class="btn-small" id="applyBtn" data-i18n="filter.apply">ค้นหา</button>
+        <button class="btn-small btn-ghost" id="clearBtn" data-i18n="filter.clear">ล้างตัวกรอง</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="propertiesSection" aria-live="polite">
+    <div id="propertiesGrid" class="grid"></div>
+    <div id="noResults" class="no-results" style="display:none;">ไม่พบที่ดินที่ตรงกับเงื่อนไข</div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2 data-i18n="nav.contact" class="contact-title">ติดต่อ</h2>
+    <div id="leadFormContainer"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h3 class="footer-brand">NextPlot</h3>
+      <p data-i18n="hero.description" class="footer-desc">
+        บ้าน อาคารพาณิช ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย...
+      </p>
+    </div>
+    <div>
+      <h4 class="footer-head">เมนู</h4>
+      <div class="footer-links">
+        <a href="#properties" data-i18n="nav.properties">ที่ดิน</a>
+        <a href="#contact" data-i18n="nav.contact">ติดต่อ</a>
+        <a href="https://landsmaps.dol.go.th/" target="_blank" rel="noopener" data-i18n="nav.landsmaps">LandsMaps</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-head">สถานะ</h4>
+      <p class="footer-desc">
+        <span style="display:inline-block;width:8px;height:8px;background:#3BB273;border-radius:50%;margin-right:6px;"></span>Online<br>
+        Modular Build
+      </p>
+    </div>
+  </div>
+  <small>© <span id="year"></span> NextPlot</small>
+</footer>
+
+<!-- Modal root -->
+<div id="modalRoot"></div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
