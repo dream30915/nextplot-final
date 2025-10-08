@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" id="top">
 <head>
   <meta charset="utf-8" />
   <title>NextPlot Modular</title>
@@ -28,6 +28,7 @@
     </div>
   </div>
   <nav class="main-nav" aria-label="Main navigation">
+    <a href="#top">หน้าหลัก</a>
     <a href="#properties" data-i18n="nav.properties">ที่ดิน</a>
     <a href="#contact" data-i18n="nav.contact">ติดต่อ</a>
     <a href="https://landsmaps.dol.go.th/" target="_blank" rel="noopener" data-i18n="nav.landsmaps">LandsMaps</a>
@@ -84,7 +85,6 @@
     <div id="leadFormContainer"></div>
   </section>
 
-  <!-- Info / About / Units / (Zoning legend can be re-enabled if needed) -->
   <section class="info-panels" aria-label="Information panels">
     <div class="panels-grid">
       <article class="gold-panel">
@@ -111,6 +111,16 @@
           <li data-i18n="units.convert.wah">1 ตร.วา = 4 ตร.ม.</li>
         </ul>
       </article>
+      <article class="gold-panel">
+        <h3 data-i18n="zoning.legend">สีผังเมือง</h3>
+        <ul class="zoning-legend-mini">
+          <li><span style="--c:#FFC0CB"></span> ชมพู</li>
+          <li><span style="--c:#B19CD9"></span> ม่วง</li>
+          <li><span style="--c:#8B4513"></span> น้ำตาล</li>
+          <li><span style="--c:#228B22"></span> เขียว</li>
+          <li><span style="--c:#FFD700"></span> เหลือง</li>
+        </ul>
+      </article>
     </div>
   </section>
 </main>
@@ -126,6 +136,7 @@
     <div>
       <h4 class="footer-head">เมนู</h4>
       <div class="footer-links">
+        <a href="#top">หน้าหลัก</a>
         <a href="#properties" data-i18n="nav.properties">ที่ดิน</a>
         <a href="#contact" data-i18n="nav.contact">ติดต่อ</a>
         <a href="https://landsmaps.dol.go.th/" target="_blank" rel="noopener" data-i18n="nav.landsmaps">LandsMaps</a>
@@ -135,7 +146,7 @@
       <h4 class="footer-head">สถานะ</h4>
       <p class="footer-desc">
         <span style="display:inline-block;width:8px;height:8px;background:#3BB273;border-radius:50%;margin-right:6px;"></span>
-        Online<br>Modular Build
+        Online<br>Gold UI
       </p>
     </div>
   </div>
