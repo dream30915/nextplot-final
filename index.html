@@ -7,6 +7,8 @@
   <meta name="description" content="NextPlot Multi-file Modular Version" />
   <meta name="theme-color" content="#2E2E2E">
   <link rel="stylesheet" href="style.css" />
+  <!-- ถ้าคุณมี print.css แล้วคงไว้ได้ -->
+  <link rel="stylesheet" href="print.css" media="print" />
 </head>
 <body>
 <a href="#main" class="skip-link">ข้ามไปเนื้อหา</a>
@@ -68,13 +70,14 @@
         <option value="priceDesc" data-i18n="sort.priceDesc">ราคาสูง - ต่ำ</option>
       </select>
       <div class="filter-actions">
-        <button class="btn-small" id="applyBtn" data-i18n="filter.apply" data-event="filter_apply">ค้นหา</button>
-        <button class="btn-small btn-ghost" id="clearBtn" data-i18n="filter.clear" data-event="filter_clear">ล้างตัวกรอง</button>
+        <button class="btn-small" id="applyBtn" data-i18n="filter.apply">ค้นหา</button>
+        <button class="btn-small btn-ghost" id="clearBtn" data-i18n="filter.clear">ล้างตัวกรอง</button>
       </div>
     </div>
   </section>
 
-  <section id="propertiesSection" aria-live="polite">
+  <!-- เปลี่ยน id ให้ตรง anchor (#properties) -->
+  <section id="properties" aria-live="polite">
     <div id="propertiesGrid" class="grid"></div>
     <div id="noResults" class="no-results" style="display:none;">ไม่พบที่ดินที่ตรงกับเงื่อนไข</div>
   </section>
