@@ -1,5 +1,4 @@
 import { translations } from './translations.js'
-
 export let currentLang = localStorage.getItem('np:lang') || 'th'
 export let theme = localStorage.getItem('np:theme') || 'dark'
 export let favorites = JSON.parse(localStorage.getItem('np:favs') || '[]')
