@@ -1,57 +1,100 @@
+// Seed data (5 properties) with multilingual fields + zoning metadata
 export const properties = [
   {
-    id:'1', code:'NP001',
-    title:{th:'ที่ดินเปล่า ใกล้ถนนใหญ่ เหมาะลงทุน', en:'Vacant Land Near Main Road (Investment)', zh:'主干道旁空地 投资佳'},
-    location:{th:'บางนา กทม.', en:'Bangna, Bangkok', zh:'曼谷 邦纳'},
-    price:15000000, currency:'THB',
-    areaRai:2.5, areaSqm:2.5*1600,
+    id:'NP001',
+    code:'NP001',
+    title:{ th:'ที่ดินปลวกแดง ระยอง 3.5 ไร่', en:'Land Pluak Daeng Rayong 3.5 Rai', zh:'罗勇 Pluak Daeng 土地 3.5 莱' },
+    location:{ th:'ปลวกแดง, ระยอง', en:'Pluak Daeng, Rayong', zh:'罗勇 Pluak Daeng' },
+    price:5200000, currency:'THB',
+    areaRai:3.5, areaSqm:3.5*1600,
     status:'available',
-    zoning:{th:'สีเหลือง', en:'Yellow', zh:'黄色'},
-    tags:{th:['ใกล้ถนนใหญ่','โฉนดพร้อม','เหมาะลงทุน'], en:['Near main road','Title deed','Investment'], zh:['靠主路','产权证','投资']},
+    zoning:{
+      th:'สีชมพู', en:'Pink', zh:'粉色',
+      color:'#FFC0CB',
+      note:{ th:'คลังสินค้า / โลจิสติกส์', en:'Warehouse / Logistics', zh:'仓储 / 物流' }
+    },
+    tags:{
+      th:['ลงทุน','ใกล้ถนนใหญ่'],
+      en:['Investment','Near main road'],
+      zh:['投资','临主路']
+    },
     media:[
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'
+      'https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?w=800&auto=format&fit=crop&q=70',
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=70'
     ]
   },
   {
-    id:'2', code:'NP002',
-    title:{th:'ที่ดินติดคลอง พร้อมบ้านเก่า', en:'Canal Land + Old House', zh:'临运河老房土地'},
-    location:{th:'นนทบุรี', en:'Nonthaburi', zh:'暖武里'},
-    price:8500000, currency:'THB',
-    areaRai:1.0, areaSqm:1600,
+    id:'NP002',
+    code:'NP002',
+    title:{ th:'ที่ดินบ่อวิน ชลบุรี 2 ไร่', en:'Land Bo Win Chonburi 2 Rai', zh:'春武里 Bo Win 土地 2 莱' },
+    location:{ th:'บ่อวิน, ชลบุรี', en:'Bo Win, Chonburi', zh:'春武里 Bo Win' },
+    price:7800000, currency:'THB',
+    areaRai:2.0, areaSqm:2.0*1600,
     status:'available',
-    zoning:{th:'สีเขียว', en:'Green', zh:'绿色'},
-    tags:{th:['ติดคลอง','วิวธรรมชาติ','บ้านเก่า'], en:['Waterfront','Nature view','Old house'], zh:['临水','自然景','老房']},
+    zoning:{
+      th:'สีม่วงอ่อน', en:'Light Purple', zh:'淡紫色',
+      color:'#B19CD9',
+      note:{ th:'อุตสาหกรรมกึ่งพาณิชย์', en:'Semi‑industrial', zh:'轻工业/商用' }
+    },
+    tags:{ th:['เชิงพาณิชย์'], en:['Commercial'], zh:['商业'] },
     media:[
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80',
-      'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80'
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&auto=format&fit=crop&q=70',
+      'https://images.unsplash.com/photo-1464822759844-d150ad6082ba?w=800&auto=format&fit=crop&q=70'
     ]
   },
   {
-    id:'3', code:'NP003',
-    title:{th:'ที่ดินเชิงพาณิชย์ ทำเลใจกลางเมือง', en:'Commercial Plot City Center', zh:'市中心商业地块'},
-    location:{th:'สีลม กทม.', en:'Silom, Bangkok', zh:'曼谷是隆'},
-    price:45000000, currency:'THB',
-    areaRai:0.5, areaSqm:800,
+    id:'NP003',
+    code:'NP003',
+    title:{ th:'ที่ดินปลวกแดง ระยอง 1.25 ไร่ (จอง)', en:'Pluak Daeng Rayong 1.25 Rai (Reserved)', zh:'罗勇 Pluak Daeng 1.25 莱 (预订)' },
+    location:{ th:'ปลวกแดง, ระยอง', en:'Pluak Daeng, Rayong', zh:'罗勇 Pluak Daeng' },
+    price:3500000, currency:'THB',
+    areaRai:1.25, areaSqm:1.25*1600,
     status:'reserved',
-    zoning:{th:'สีแดง', en:'Red', zh:'红色'},
-    tags:{th:['ทำเลทอง','เชิงพาณิช','ใจกลางเมือง'], en:['Prime location','Commercial','Central'], zh:['黄金地段','商业','中心']},
+    zoning:{
+      th:'สีน้ำตาล', en:'Brown', zh:'棕色',
+      color:'#8B4513',
+      note:{ th:'ผสมพาณิชย์หนาแน่น', en:'High density mixed commercial', zh:'高密度混合商业' }
+    },
+    tags:{ th:['ใกล้ชุมชน','คุ้มค่า'], en:['Near community','Value'], zh:['近社区','划算'] },
     media:[
-      'https://images.unsplash.com/photo-1464822759844-d150ad6082ba?w=800&q=80',
-      'https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80'
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=70'
     ]
   },
   {
-    id:'4', code:'NP004',
-    title:{th:'ที่ดินราคาดี เหมาะทำโกดัง', en:'Affordable Plot for Warehouse', zh:'适合仓库的实惠土地'},
-    location:{th:'ฉะเชิงเทรา', en:'Chachoengsao', zh:'北柳府'},
-    price:3200000, currency:'THB',
-    areaRai:0.75, areaSqm:1200,
-    status:'sold',
-    zoning:{th:'สีเหลือง', en:'Yellow', zh:'黄色'},
-    tags:{th:['โฉนดพร้อม','คุ้มค่า'], en:['Title deed','Value'], zh:['产权证','划算']},
+    id:'NP004',
+    code:'NP004',
+    title:{ th:'ที่ดินวิวสวย เหมาะทำรีสอร์ท 5 ไร่', en:'Scenic Plot 5 Rai (Resort Potential)', zh:'景观地块 5 莱 适合度假村' },
+    location:{ th:'ปลวกแดง, ระยอง', en:'Pluak Daeng, Rayong', zh:'罗勇 Pluak Daeng' },
+    price:12500000, currency:'THB',
+    areaRai:5.0, areaSqm:5.0*1600,
+    status:'available',
+    zoning:{
+      th:'สีเขียว', en:'Green', zh:'绿色',
+      color:'#228B22',
+      note:{ th:'อนุรักษ์/พักผ่อน', en:'Conservation / Leisure', zh:'保育 / 休闲' }
+    },
+    tags:{ th:['วิวสวย','เหมาะทำรีสอร์ท'], en:['Scenic','Resort potential'], zh:['景观好','适合度假村'] },
     media:[
-      'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80'
+      'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&auto=format&fit=crop&q=70'
     ]
+  },
+  {
+    id:'NP005',
+    code:'NP005',
+    title:{ th:'ที่ดินราคาพิเศษ 0.75 ไร่ (ขายแล้ว)', en:'Special Price 0.75 Rai (Sold)', zh:'特价 0.75 莱 (已售)' },
+    location:{ th:'ปลวกแดง, ระยอง', en:'Pluak Daeng, Rayong', zh:'罗勇 Pluak Daeng' },
+    price:2800000, currency:'THB',
+    areaRai:0.75, areaSqm:0.75*1600,
+    status:'sold',
+    zoning:{
+      th:'สีเหลือง', en:'Yellow', zh:'黄色',
+      color:'#FFD700',
+      note:{ th:'ที่อยู่อาศัยหนาแน่นน้อย', en:'Low density residential', zh:'低密度住宅' }
+    },
+    tags:{ th:['ราคาพิเศษ'], en:['Special price'], zh:['特价'] },
+    media:[
+      'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=800&auto=format&fit=crop&q=70'
+    ],
+    is_sensitive:false
   }
 ]
