@@ -1,88 +1,179 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" id="top">
 <head>
-<meta charset="utf-8">
-<title>NextPlot Minimal</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Minimal forced render version">
-<meta name="theme-color" content="#2E2E2E">
-<style>
-:root{
-  --bg:#1d1d1d;--card:#2b2b2b;--border:#444;--accent:#C9A14A;--text:#fff;--text-d:#cfcfcf;
-  font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Thai",Arial,sans-serif;
-}
-body{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:12px}
-.brand-logo{width:50px;height:50px;background:#111;border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);letter-spacing:.5px}
-.brand-name{font-size:20px;font-weight:800;color:var(--accent)}
-.grid{padding:26px 20px;display:grid;gap:28px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
-.card{background:linear-gradient(180deg,#2f2f2f,#252525);border:1px solid var(--border);border-radius:24px;padding:18px 18px 22px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 32px -14px #000;position:relative}
-.card::after{content:'';position:absolute;inset:0;border:1px solid rgba(201,161,74,.4);border-radius:24px;pointer-events:none}
-.code{font-size:11px;letter-spacing:1px;font-weight:600;color:var(--accent)}
-.title{margin:0;font-size:18px;font-weight:600;line-height:1.3}
-.loc{font-size:13px;color:var(--text-d)}
-.price{font-size:22px;font-weight:700;color:var(--accent)}
-.meta{font-size:13px;color:var(--text-d)}
-.badges{display:flex;flex-wrap:wrap;gap:6px}
-.badge{background:#555;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:500}
-.badge.status-available{background:#256f3d}
-.badge.status-reserved{background:#996f1d}
-.badge.status-sold{background:#7a1b24}
-.zoning{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:6px;color:var(--text-d)}
-.zoning span.sw{width:18px;height:18px;border-radius:6px;border:1px solid #fff5;display:inline-block}
-footer{padding:40px 0 50px;font-size:12px;color:#888;text-align:center;border-top:1px solid var(--border);margin-top:30px}
-.notice{margin:10px 20px 0;font:12px/1.4 monospace;color:#e5c887;white-space:pre-line}
-@media (max-width:600px){ .grid{padding:20px 16px} }
-</style>
+  <meta charset="utf-8" />
+  <title>NextPlot – Land Listings</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="บริการซื้อ‑ขาย‑เช่า และขายฝาก รับจัดหาที่ดินทั่วประเทศ – NextPlot" />
+  <meta name="theme-color" content="#2E2E2E">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="print.css" media="print" />
+  <style>
+    .remote-status{
+      margin:10px 0 30px;
+      font:12.5px/1.55 system-ui,-apple-system,"Segoe UI","Noto Sans Thai",Arial,sans-serif;
+      color:#c9a14a;
+      background:#2d2719;
+      border:1px solid #4d4023;
+      padding:8px 12px;
+      border-radius:10px;
+      display:none;
+      max-width:520px;
+    }
+    .remote-status.error{color:#ff6666;background:#371f1f;border-color:#6a3333}
+    .remote-status.ok{color:#4ade80;background:#1e3724;border-color:#2f5c3a}
+    .remote-status.loading{display:block;opacity:.85}
+  </style>
 </head>
 <body>
-<header>
-  <div class="brand">
-    <div class="brand-logo">NP</div>
-    <div class="brand-name">NextPlot</div>
-  </div>
-  <div style="font:12px/1.4 monospace;color:#e5c887;">FORCED INLINE RENDER</div>
-</header>
-<div id="note" class="notice">Loading seed…</div>
-<div id="grid" class="grid"></div>
-<footer>© <span id="year"></span> NextPlot (Minimal Forced Build)</footer>
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
+<a href="#main" class="skip-link">ข้ามไปเนื้อหา</a>
 
-const seed=[
-  {code:'NP006',title:'Bangna Bangkok Land 2 Rai 2 Ngan',loc:'Bangna, Bangkok',price:15000000,areaRai:2.5,status:'available',z:{n:'Yellow',c:'#FFD700'},tags:['ลงทุน','โฉนดพร้อม']},
-  {code:'NP001',title:'Pluak Daeng Rayong 3.5 Rai',loc:'Pluak Daeng, Rayong',price:5200000,areaRai:3.5,status:'available',z:{n:'Pink',c:'#FFC0CB'},tags:['ลงทุน','ใกล้ถนนใหญ่']},
-  {code:'NP002',title:'Bo Win Chonburi 2 Rai',loc:'Bo Win, Chonburi',price:7800000,areaRai:2,status:'available',z:{n:'Light Purple',c:'#B19CD9'},tags:['เชิงพาณิชย์']},
-  {code:'NP003',title:'Pluak Daeng 1.25 Rai (Reserved)',loc:'Pluak Daeng, Rayong',price:3500000,areaRai:1.25,status:'reserved',z:{n:'Brown',c:'#8B4513'},tags:['คุ้มค่า']},
-  {code:'NP004',title:'Scenic Plot 5 Rai',loc:'Pluak Daeng, Rayong',price:12500000,areaRai:5,status:'available',z:{n:'Green',c:'#228B22'},tags:['วิวสวย']},
-  {code:'NP005',title:'Special 0.75 Rai (Sold)',loc:'Pluak Daeng, Rayong',price:2800000,areaRai:0.75,status:'sold',z:{n:'Yellow',c:'#FFD700'},tags:['ราคาพิเศษ']}
-];
-
-function fmtPrice(n){return n.toLocaleString()+' THB'}
-function fmtArea(r){return r+' ไร่'}
-function statusBadge(s){
-  const cls='status-'+s;
-  const map={available:'Available',reserved:'Reserved',sold:'Sold'};
-  return `<span class="badge ${cls}">${map[s]||s}</span>`;
-}
-const grid=document.getElementById('grid');
-grid.innerHTML=seed.map(p=>`
-  <div class="card">
-    <div class="code">${p.code}</div>
-    <h2 class="title">${p.title}</h2>
-    <div class="loc">${p.loc}</div>
-    <div class="price">${fmtPrice(p.price)}</div>
-    <div class="meta">${fmtArea(p.areaRai)}</div>
-    <div class="badges">
-      ${statusBadge(p.status)}
-      ${p.tags.map(t=>`<span class="badge">${t}</span>`).join('')}
+<header class="site-header">
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-logo" aria-label="NextPlot logo">NP</div>
+      <div class="brand-text">
+        <div class="brand-name">NextPlot</div>
+        <div class="brand-tagline">PLOT FOR SALE</div>
+      </div>
     </div>
-    <div class="zoning"><span class="sw" style="background:${p.z.c}"></span><span>${p.z.n}</span></div>
+    <div class="top-controls">
+      <div id="langSwitch" class="lang-switch" aria-label="Language switch"></div>
+      <button id="themeBtn" class="btn-ghost" aria-label="Toggle Theme">🌙</button>
+      <button id="authBtn" class="btn-outline" data-i18n="nav.login">เข้าสู่ระบบ</button>
+    </div>
   </div>
-`).join('');
-document.getElementById('note').textContent='Seed cards rendered: '+seed.length;
-console.log('[nuclear] rendered',seed.length,'cards');
-</script>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="#top">หน้าหลัก</a>
+    <a href="#properties" data-i18n="nav.properties">ที่ดิน</a>
+    <a href="#contact" data-i18n="nav.contact">ติดต่อ</a>
+    <a href="https://landsmaps.dol.go.th/" target="_blank" rel="noopener" data-i18n="nav.landsmaps">LandsMaps</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="hero.title">
+    บริการซื้อ‑ขาย‑เช่า  และ  ขายฝาก  รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร
+  </h1>
+  <p class="hero-desc" data-i18n="hero.description">
+    บ้าน  อาคารพาณิช  ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย เข้าถึงได้ ฟอร์มลูกค้า (PDPA) และระบบขอเอกสารแบบ Soft Gate
+  </p>
+  <div class="hero-cta">
+    <button class="btn" data-i18n="hero.cta.viewAll" id="viewAllBtn">ดูที่ดินทั้งหมด</button>
+    <button class="btn btn-outline" data-i18n="hero.cta.contact" id="contactBtn">ติดต่อเรา</button>
+  </div>
+</section>
+
+<main id="main" class="main-section">
+  <section id="filtersSection">
+    <div class="filters">
+      <input id="fKeyword" placeholder="ค้นหา..." data-i18n-ph="search.placeholder">
+      <input id="fLocation" placeholder="ทำเล" data-i18n-ph="filter.location">
+      <input id="fPriceMin" placeholder="ราคาต่ำสุด" type="number" data-i18n-ph="filter.priceMin">
+      <input id="fPriceMax" placeholder="ราคาสูงสุด" type="number" data-i18n-ph="filter.priceMax">
+      <input id="fAreaMin" placeholder="พื้นที่ต่ำสุด (ไร่)" type="number" data-i18n-ph="filter.areaMin">
+      <input id="fAreaMax" placeholder="พื้นที่สูงสุด (ไร่)" type="number" data-i18n-ph="filter.areaMax">
+      <select id="fStatus">
+        <option value="all" data-i18n="filter.status.all">ทั้งหมด</option>
+        <option value="available" data-i18n="status.available">ว่าง</option>
+        <option value="reserved" data-i18n="status.reserved">จอง</option>
+        <option value="sold" data-i18n="status.sold">ขายแล้ว</option>
+      </select>
+      <select id="fSort">
+        <option value="latest" data-i18n="sort.latest">ล่าสุด</option>
+        <option value="priceAsc" data-i18n="sort.priceAsc">ราคาต่ำ - สูง</option>
+        <option value="priceDesc" data-i18n="sort.priceDesc">ราคาสูง - ต่ำ</option>
+      </select>
+      <div class="filter-actions">
+        <button class="btn-small" id="applyBtn" data-i18n="filter.apply">ค้นหา</button>
+        <button class="btn-small btn-ghost" id="clearBtn" data-i18n="filter.clear">ล้างตัวกรอง</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="remoteStatus" class="remote-status" aria-live="polite"></div>
+
+  <section id="properties" aria-live="polite">
+    <div id="propertiesGrid" class="grid"></div>
+    <div id="noResults" class="no-results" style="display:none;">ไม่พบที่ดินที่ตรงกับเงื่อนไข</div>
+    <div id="debugSlot" style="margin-top:30px;font:12px/1.4 monospace;color:#888;"></div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2 data-i18n="nav.contact" class="contact-title">ติดต่อ</h2>
+    <div id="leadFormContainer"></div>
+  </section>
+
+  <section class="info-panels" aria-label="Information panels">
+    <div class="panels-grid">
+      <article class="gold-panel">
+        <h3 data-i18n="about.title">เกี่ยวกับ NextPlot</h3>
+        <p data-i18n="about.desc">NextPlot เป็นแพลตฟอร์มอสังหาริมทรัพย์ครบวงจร ...</p>
+        <ul>
+          <li data-i18n="about.feature.search">ระบบค้นหาขั้นสูง</li>
+          <li data-i18n="about.feature.share">แชร์ได้หลายช่องทาง</li>
+          <li data-i18n="about.feature.pdpa">ฟอร์ม PDPA ครบถ้วน</li>
+        </ul>
+      </article>
+      <article class="gold-panel">
+        <h3 data-i18n="units.title">คู่มือหน่วยพื้นที่</h3>
+        <p data-i18n="units.th.rule">หน่วยวัดที่ดินไทย</p>
+        <ul>
+          <li data-i18n="units.rai">1 ไร่ = 4 งาน = 400 ตร.วา</li>
+          <li data-i18n="units.ngan">1 งาน = 100 ตร.วา</li>
+          <li data-i18n="units.wah">1 ตร.วา = 4 ตร.ม.</li>
+        </ul>
+        <p style="margin-top:18px;font-weight:600;" data-i18n="units.convert">การแปลงหน่วย</p>
+        <ul>
+          <li data-i18n="units.convert.rai">1 ไร่ = 1,600 ตร.ม.</li>
+          <li data-i18n="units.convert.ngan">1 งาน = 400 ตร.ม.</li>
+          <li data-i18n="units.convert.wah">1 ตร.วา = 4 ตร.ม.</li>
+        </ul>
+      </article>
+      <article class="gold-panel">
+        <h3 data-i18n="zoning.legend">สีผังเมือง</h3>
+        <ul class="zoning-legend-mini">
+          <li><span style="--c:#FFC0CB"></span> ชมพู</li>
+          <li><span style="--c:#B19CD9"></span> ม่วง</li>
+          <li><span style="--c:#8B4513"></span> น้ำตาล</li>
+          <li><span style="--c:#228B22"></span> เขียว</li>
+          <li><span style="--c:#FFD700"></span> เหลือง</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <h3 class="footer-brand">NextPlot</h3>
+      <p data-i18n="hero.description" class="footer-desc">
+        บ้าน  อาคารพาณิช  ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย...
+      </p>
+    </div>
+    <div>
+      <h4 class="footer-head">เมนู</h4>
+      <div class="footer-links">
+        <a href="#top">หน้าหลัก</a>
+        <a href="#properties" data-i18n="nav.properties">ที่ดิน</a>
+        <a href="#contact" data-i18n="nav.contact">ติดต่อ</a>
+        <a href="https://landsmaps.dol.go.th/" target="_blank" rel="noopener" data-i18n="nav.landsmaps">LandsMaps</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-head">สถานะ</h4>
+      <p class="footer-desc">
+        <span style="display:inline-block;width:8px;height:8px;background:#3BB273;border-radius:50%;margin-right:6px;"></span>
+        Online<br>Gold UI
+      </p>
+    </div>
+  </div>
+  <small>© <span id="year"></span> NextPlot</small>
+</footer>
+
+<div id="modalRoot"></div>
+<script type="module" src="src/main.js"></script>
 </body>
 </html>
