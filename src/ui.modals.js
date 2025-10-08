@@ -1,5 +1,5 @@
-import { t, toggleFavorite, isFavorite } from './state.js'
-import { escapeHtml, formatArea, formatPrice, buildShareUrl, copyToClipboard } from './utils.js'
+import { t, toggleFavorite } from './state.js'
+import { escapeHtml, formatPrice } from './utils.js'
 import { properties } from './data.properties.js'
 import { renderProperties } from './ui.render.js'
 
@@ -11,23 +11,30 @@ export function closeModal(){
 export function openDetail(id){
   const p = properties.find(x=>x.id===id)
   if(!p) return
-  let idx=0
+  const lang = localStorage.getItem('np:lang') || 'th'
+  const title = p.title[lang] || p.title.th
+  const areaHtml = verboseArea(p, lang)
+  const zoning = p.zoning ? p.zoning[lang] || p.zoning.th : ''
+  const zoningNote = p.zoning?.note ? (p.zoning.note[lang]||p.zoning.note.th) : ''
+  const imgs = p.media || []
   const root = document.getElementById('modalRoot')
+
   root.innerHTML = `
-    <div class="modal-backdrop">
+    <div class="modal-backdrop" role="dialog" aria-modal="true">
       <div class="modal">
-        <button class="close" onclick="import('./ui.modals.js').then(m=>m.closeModal())">×</button>
-        <h2>${escapeHtml(p.title[localStorage.getItem('np:lang')||'th'])}</h2>
+        <button class="close" aria-label="Close detail" onclick="import('./ui.modals.js').then(m=>m.closeModal())">×</button>
+        <h2>${escapeHtml(title)}</h2>
         <div class="detail-grid">
           <div>
             <div class="gallery-main" id="galMain">
-              <img src="${p.media[0]}" alt="${escapeHtml(p.title.th)}">
+              ${imgs.length ? `<img src="${imgs[0]}" alt="${escapeHtml(title)}">` : 'NO IMAGE'}
             </div>
             <div class="thumbs">
-              ${p.media.map((m,i)=>`
+              ${imgs.map((m,i)=>`
                 <button class="${i===0?'active':''}" data-img="${i}" data-pid="${p.id}">
-                  <img src="${m}" alt="${escapeHtml(p.title.th)} ${i+1}">
-                </button>`).join('')}
+                  <img src="${m}" alt="${escapeHtml(title)} ${i+1}">
+                </button>
+              `).join('')}
             </div>
           </div>
           <div class="detail-box">
@@ -37,22 +44,22 @@ export function openDetail(id){
             </div>
             <div class="info-item">
               <span class="info-label">${t('property.area')}</span>
-              <div title="${t('area.tooltip')}">${formatArea(p)}</div>
+              <div title="${t('area.tooltip')}">${areaHtml}</div>
             </div>
             <div class="info-item">
               <span class="info-label">${t('property.zoning')}</span>
-              <div>${p.zoning[localStorage.getItem('np:lang')||'th']}</div>
+              <div>${escapeHtml(zoning)}${zoningNote?` – <small>${escapeHtml(zoningNote)}</small>`:''}</div>
             </div>
             <div class="info-item">
               <span class="info-label">${t('property.tags')}</span>
               <div class="tag-list">
-                ${p.tags[localStorage.getItem('np:lang')||'th'].map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join('')}
+                ${p.tags[lang].map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join('')}
               </div>
             </div>
             <div class="inline-group">
               <button class="inline-btn" id="shareBtnModal">${t('property.share')}</button>
               <button class="inline-btn" id="favBtnModal">${t('property.favorite')}</button>
-              <button class="inline-btn" id="landsBtnModal" >LandsMaps</button>
+              <button class="inline-btn" id="landsBtnModal">LandsMaps</button>
               <button class="inline-btn" id="contactBtnModal">${t('property.contact')}</button>
             </div>
           </div>
@@ -60,10 +67,9 @@ export function openDetail(id){
       </div>
     </div>
   `
-  // Attach events after render
   setTimeout(()=>{
     document.querySelectorAll('.thumbs button').forEach(btn=>{
-      btn.addEventListener('click', e=>{
+      btn.addEventListener('click', ()=>{
         const i = Number(btn.getAttribute('data-img'))
         const pid = btn.getAttribute('data-pid')
         const prop = properties.find(pp=>pp.id===pid)
@@ -71,14 +77,14 @@ export function openDetail(id){
         document.querySelectorAll('.thumbs button').forEach(b=>b.classList.remove('active'))
         btn.classList.add('active')
         const img = document.querySelector('#galMain img')
-        img.src = prop.media[i]
+        if(img) img.src = prop.media[i]
       })
     })
     document.getElementById('shareBtnModal').onclick = ()=>openShare(p.id)
     document.getElementById('favBtnModal').onclick = ()=>{
       toggleFavorite(p.id)
-      renderProperties() // update list in background
-      openDetail(p.id)   // re-open to update state
+      renderProperties()
+      openDetail(p.id)
     }
     document.getElementById('landsBtnModal').onclick = ()=>window.open('https://landsmaps.dol.go.th/','_blank','noopener')
     document.getElementById('contactBtnModal').onclick = ()=>{
@@ -88,18 +94,40 @@ export function openDetail(id){
   },0)
 }
 
+function verboseArea(p, lang){
+  const rai = Math.floor(p.areaRai)
+  const totalWah = p.areaRai * 400
+  const remainWah = totalWah - rai*400
+  const ngan = Math.floor(remainWah/100)
+  const wah = Math.round(remainWah - ngan*100)
+  const sqm = p.areaSqm
+  const wRai = lang==='th'?'ไร่':lang==='en'?'Rai':'莱'
+  const wNgan = lang==='th'?'งาน':lang==='en'?'Ngan':'岸'
+  const wWah = lang==='th'?'ตร.วา':lang==='en'?'Sq.wah':'平方哇'
+  const wSqm = lang==='th'?'ตร.ม.':lang==='en'?'Sq.m.':'平方米'
+  let parts=[]
+  if(rai) parts.push(`${rai} ${wRai}`)
+  if(ngan) parts.push(`${ngan} ${wNgan}`)
+  if(wah) parts.push(`${wah} ${wWah}`)
+  if(!parts.length) parts.push(`0 ${wRai}`)
+  return `${parts.join(' ')} (${sqm.toLocaleString()} ${wSqm})`
+}
+
 export function openShare(id){
   const p = properties.find(x=>x.id===id)
   if(!p) return
-  const url = buildShareUrl(p,'copy')
+  const lang = localStorage.getItem('np:lang') || 'th'
+  const title = encodeURIComponent(p.title[lang]||p.title.th)
+  const base = location.origin + location.pathname
+  const url = `${base}?property=${encodeURIComponent(p.id)}`
   const root = document.getElementById('modalRoot')
   root.innerHTML = `
     <div class="modal-backdrop">
       <div class="modal">
-        <button class="close" onclick="import('./ui.modals.js').then(m=>m.closeModal())">×</button>
-        <h2>${t('property.share')} – ${escapeHtml(p.title[localStorage.getItem('np:lang')||'th'])}</h2>
+        <button class="close" aria-label="Close share" onclick="import('./ui.modals.js').then(m=>m.closeModal())">×</button>
+        <h2>${t('property.share')} – ${escapeHtml(p.title[lang]||p.title.th)}</h2>
         <div class="share-grid">
-          ${['line','facebook','email','copy','wechat'].map(ch=>`
+          ${['line','facebook','email','copy'].map(ch=>`
             <button class="inline-btn" data-share="${ch}" data-id="${p.id}">${ch.toUpperCase()}</button>
           `).join('')}
         </div>
@@ -109,33 +137,47 @@ export function openShare(id){
   `
   setTimeout(()=>{
     document.querySelectorAll('[data-share]').forEach(btn=>{
-      btn.addEventListener('click', e=>{
+      btn.addEventListener('click', ()=>{
         const channel = btn.getAttribute('data-share')
-        const prop = properties.find(pp=>pp.id===id)
-        if(!prop) return
-        const final = buildShareUrl(prop, channel)
-        if(channel==='copy' || channel==='wechat'){
-          copyToClipboard(final).then(()=>alert(t('property.share')+' OK'))
-        } else if(channel==='email'){
-          const subj = encodeURIComponent(prop.title[localStorage.getItem('np:lang')||'th'])
-          const body = encodeURIComponent(prop.title[localStorage.getItem('np:lang')||'th']+'\n'+final)
-          location.href = `mailto:?subject=${subj}&body=${body}`
-        } else {
-          window.open(final,'_blank','noopener')
-        }
+        shareChannel(p, channel)
       })
     })
   },0)
 }
 
+function shareChannel(p, channel){
+  const base = location.origin + location.pathname
+  const raw = `${base}?property=${encodeURIComponent(p.id)}&utm_source=${channel}&utm_medium=share&utm_campaign=property&utm_content=${p.id}`
+  if(channel==='copy'){
+    navigator.clipboard.writeText(raw).then(()=>alert('COPIED'))
+    return
+  }
+  if(channel==='email'){
+    const subj = encodeURIComponent(p.title.th)
+    const body = encodeURIComponent(p.title.th+'\n'+raw)
+    location.href = `mailto:?subject=${subj}&body=${body}`
+    return
+  }
+  if(channel==='facebook'){
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(raw)}`,'_blank','noopener')
+    return
+  }
+  if(channel==='line'){
+    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(raw)}`,'_blank','noopener')
+    return
+  }
+  window.open(raw,'_blank','noopener')
+}
+
 export function openLeadForm(propertyId=''){
-  const target = document.getElementById('leadFormContainer')
-  target.innerHTML = `
+  const tLang = localStorage.getItem('np:lang') || 'th'
+  const container = document.getElementById('leadFormContainer')
+  container.innerHTML = `
     <form class="form-lead" id="leadForm">
       <h3 style="margin:0;font-size:16px;">Lead Form</h3>
       <input type="hidden" id="leadPropertyId" value="${propertyId}">
       <div>
-        <label style="display:block;font-size:12px;margin-bottom:4px;" data-i18n="form.name">${t('form.name')}</label>
+        <label style="display:block;font-size:12px;margin-bottom:4px;" data-i18n="form.name">ชื่อ</label>
         <input id="leadName" required placeholder="${t('form.name')}">
       </div>
       <div>
@@ -155,7 +197,7 @@ export function openLeadForm(propertyId=''){
         <label for="leadPDPA" style="cursor:pointer;">${t('form.pdpa')}</label>
       </div>
       <button class="btn" style="width:100%;">${t('form.submit')}</button>
-      <div class="notice" id="leadNotice"></div>
+      <div class="notice" id="leadNotice" aria-live="polite"></div>
     </form>
   `
   const form = document.getElementById('leadForm')
@@ -172,10 +214,7 @@ export function openLeadForm(propertyId=''){
     }
     notice.style.color='var(--green)'
     notice.textContent = t('form.success')
-    setTimeout(()=>{
-      notice.textContent=''
-      form.reset()
-    },1600)
+    setTimeout(()=>{ notice.textContent=''; form.reset() },1600)
   }
   document.getElementById('contact').scrollIntoView({behavior:'smooth'})
 }
