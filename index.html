@@ -7,7 +7,6 @@
   <meta name="description" content="NextPlot Multi-file Modular Version" />
   <meta name="theme-color" content="#2E2E2E">
   <link rel="stylesheet" href="style.css" />
-  <!-- ถ้าคุณมี print.css แล้วคงไว้ได้ -->
   <link rel="stylesheet" href="print.css" media="print" />
 </head>
 <body>
@@ -37,9 +36,7 @@
 </header>
 
 <section class="hero">
-  <h1 data-i18n="hero.title">
-    บริการซื้อ‑ขาย‑เช่า  และ  ขายฝาก  รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร
-  </h1>
+  <h1 data-i18n="hero.title">บริการซื้อ‑ขาย‑เช่า  และ  ขายฝาก  รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร</h1>
   <p class="hero-desc" data-i18n="hero.description">
     บ้าน  อาคารพาณิช  ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย เข้าถึงได้ ฟอร์มลูกค้า (PDPA) และระบบขอเอกสารแบบ Soft Gate
   </p>
@@ -76,10 +73,10 @@
     </div>
   </section>
 
-  <!-- เปลี่ยน id ให้ตรง anchor (#properties) -->
   <section id="properties" aria-live="polite">
     <div id="propertiesGrid" class="grid"></div>
     <div id="noResults" class="no-results" style="display:none;">ไม่พบที่ดินที่ตรงกับเงื่อนไข</div>
+    <div id="debugSlot" style="margin-top:30px;font:12px/1.4 monospace;color:#888;"></div>
   </section>
 
   <section id="contact" class="contact-section">
