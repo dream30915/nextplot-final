@@ -8,132 +8,111 @@ function favAria(id){
     ? (currentLang==='th'?'เอาออกจากรายการบันทึก':'Remove favorite')
     : (currentLang==='th'?'บันทึกไว้':'Add favorite')
 }
-
 export function renderLangSwitch(){
-  const c = document.getElementById('langSwitch')
-  c.innerHTML = ['th','en','zh'].map(l=>`
-    <button class="${l===currentLang?'active':''}" data-set-lang="${l}" aria-label="Set language ${l}">
-      ${l.toUpperCase()}
-    </button>
+  const c=document.getElementById('langSwitch')
+  c.innerHTML=['th','en','zh'].map(l=>`
+    <button class="${l===currentLang?'active':''}" data-set-lang="${l}" aria-label="Set language ${l}">${l.toUpperCase()}</button>
   `).join('')
   c.querySelectorAll('[data-set-lang]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
+    btn.addEventListener('click',()=>{
       setLang(btn.getAttribute('data-set-lang'))
-      renderTexts()
-      renderProperties()
-      const lf = document.getElementById('leadFormContainer')
+      renderTexts(); renderProperties()
+      const lf=document.getElementById('leadFormContainer')
       if(lf && lf.innerHTML.trim()) openLeadForm(document.getElementById('leadPropertyId')?.value||'')
     })
   })
 }
-
 export function renderTexts(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n')
-    el.textContent = t(key)
+    const k=el.getAttribute('data-i18n')
+    el.textContent=t(k)
   })
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
-    const key = el.getAttribute('data-i18n-ph')
-    el.setAttribute('placeholder', t(key))
+    const k=el.getAttribute('data-i18n-ph')
+    el.setAttribute('placeholder', t(k))
   })
 }
-
 export function getFilters(){
   return {
-    kw: document.getElementById('fKeyword').value.trim().toLowerCase(),
-    loc: document.getElementById('fLocation').value.trim().toLowerCase(),
-    pmin: Number(document.getElementById('fPriceMin').value) || 0,
-    pmax: Number(document.getElementById('fPriceMax').value) || Infinity,
-    amin: Number(document.getElementById('fAreaMin').value) || 0,
-    amax: Number(document.getElementById('fAreaMax').value) || Infinity,
-    status: document.getElementById('fStatus').value,
-    sort: document.getElementById('fSort').value
+    kw:document.getElementById('fKeyword').value.trim().toLowerCase(),
+    loc:document.getElementById('fLocation').value.trim().toLowerCase(),
+    pmin:Number(document.getElementById('fPriceMin').value)||0,
+    pmax:Number(document.getElementById('fPriceMax').value)||Infinity,
+    amin:Number(document.getElementById('fAreaMin').value)||0,
+    amax:Number(document.getElementById('fAreaMax').value)||Infinity,
+    status:document.getElementById('fStatus').value,
+    sort:document.getElementById('fSort').value
   }
 }
-
-function localized(obj){ return obj[currentLang] || obj['th'] }
-
-export function filterAndSort(list, f){
-  let arr = list.filter(p=>{
-    const title = localized(p.title).toLowerCase()
-    const location = localized(p.location).toLowerCase()
-    const tags = p.tags[currentLang].join(' ').toLowerCase()
-    if(f.kw && !(title.includes(f.kw) || location.includes(f.kw) || tags.includes(f.kw) || p.code.toLowerCase().includes(f.kw))) return false
+function localized(obj){ return obj[currentLang] || obj.th }
+export function filterAndSort(list,f){
+  let arr=list.filter(p=>{
+    const title=localized(p.title).toLowerCase()
+    const location=localized(p.location).toLowerCase()
+    const tagsTxt=(p.tags?.[currentLang]||[]).join(' ').toLowerCase()
+    if(f.kw && !(title.includes(f.kw)||location.includes(f.kw)||tagsTxt.includes(f.kw)||p.code.toLowerCase().includes(f.kw))) return false
     if(f.loc && !location.includes(f.loc)) return false
-    if(p.price < f.pmin || p.price > f.pmax) return false
-    if(p.areaRai < f.amin || p.areaRai > f.amax) return false
-    if(f.status !== 'all' && p.status!==f.status) return false
+    if(p.price<f.pmin||p.price>f.pmax) return false
+    if(p.areaRai<f.amin||p.areaRai>f.amax) return false
+    if(f.status!=='all' && p.status!==f.status) return false
     return true
   })
-  if(f.sort==='priceAsc') arr.sort((a,b)=>a.price-b.price)
-  else if(f.sort==='priceDesc') arr.sort((a,b)=>b.price-a.price)
+  if(f.sort==='priceAsc')arr.sort((a,b)=>a.price-b.price)
+  else if(f.sort==='priceDesc')arr.sort((a,b)=>b.price-a.price)
   else arr.sort((a,b)=>a.code.localeCompare(b.code))
   return arr
 }
-
 function formatAreaVerbose(p){
-  const lang = currentLang
-  const rai = Math.floor(p.areaRai)
-  const totalWah = p.areaRai * 400
-  const remainWah = totalWah - rai*400
-  const ngan = Math.floor(remainWah/100)
-  const wah = Math.round(remainWah - ngan*100)
-  const sqm = p.areaSqm
-  const wRai = lang==='th'?'ไร่':lang==='en'?'Rai':'莱'
-  const wNgan = lang==='th'?'งาน':lang==='en'?'Ngan':'岸'
-  const wWah = lang==='th'?'ตร.วา':lang==='en'?'Sq.wah':'平方哇'
-  const wSqm = lang==='th'?'ตร.ม.':lang==='en'?'Sq.m.':'平方米'
+  const lang=currentLang
+  const rai=Math.floor(p.areaRai)
+  const totalWah=p.areaRai*400
+  const remainWah=totalWah-rai*400
+  const ngan=Math.floor(remainWah/100)
+  const wah=Math.round(remainWah-ngan*100)
+  const sqm=p.areaSqm
+  const wRai=lang==='th'?'ไร่':lang==='en'?'Rai':'莱'
+  const wNgan=lang==='th'?'งาน':lang==='en'?'Ngan':'岸'
+  const wWah=lang==='th'?'ตร.วา':lang==='en'?'Sq.wah':'平方哇'
+  const wSqm=lang==='th'?'ตร.ม.':lang==='en'?'Sq.m.':'平方米'
   let parts=[]
-  if(rai) parts.push(`${rai} ${wRai}`)
-  if(ngan) parts.push(`${ngan} ${wNgan}`)
-  if(wah) parts.push(`${wah} ${wWah}`)
-  if(!parts.length) parts.push(`0 ${wRai}`)
+  if(rai)parts.push(`${rai} ${wRai}`)
+  if(ngan)parts.push(`${ngan} ${wNgan}`)
+  if(wah)parts.push(`${wah} ${wWah}`)
+  if(!parts.length)parts.push(`0 ${wRai}`)
   return `${parts.join(' ')} (${sqm.toLocaleString()} ${wSqm})`
 }
-
 function zoningMarkup(p){
   if(!p.zoning) return ''
-  const name = escapeHtml(p.zoning[currentLang]||p.zoning.th)
-  const note = p.zoning.note ? escapeHtml(p.zoning.note[currentLang]||p.zoning.note.th) : ''
+  const name=escapeHtml(p.zoning[currentLang]||p.zoning.th)
+  const note=p.zoning.note?escapeHtml(p.zoning.note[currentLang]||p.zoning.note.th):''
   return `<div class="prop-zoning" title="${note?name+': '+note:name}">
-    <span class="sw" style="background:${p.zoning.color}"></span>
-    <span>${name}</span>
+    <span class="sw" style="background:${p.zoning.color}"></span><span>${name}</span>
   </div>`
 }
-
 function statusBadge(status){
-  const map={
-    available:{th:'ว่าง',en:'Available',zh:'可售',cls:'status-available'},
+  const map={available:{th:'ว่าง',en:'Available',zh:'可售',cls:'status-available'},
     reserved:{th:'จอง',en:'Reserved',zh:'预订',cls:'status-reserved'},
-    sold:{th:'ขายแล้ว',en:'Sold',zh:'已售',cls:'status-sold'}
-  }
-  const d = map[status]; if(!d) return ''
+    sold:{th:'ขายแล้ว',en:'Sold',zh:'已售',cls:'status-sold'}}
+  const d=map[status]; if(!d)return ''
   return `<span class="badge ${d.cls}">${d[currentLang]||d.th}</span>`
 }
-
 function tagsLine(p){
-  return p.tags[currentLang].slice(0,3).map(tag=>`<span class="badge badge--tag">${escapeHtml(tag)}</span>`).join('')
+  return (p.tags?.[currentLang]||[]).slice(0,3).map(tag=>`<span class="badge badge--tag">${escapeHtml(tag)}</span>`).join('')
 }
-
 function cover(p){
-  const img = p.media?.[0]
-  if(!img) return `<div class="prop-cover" style="display:flex;align-items:center;justify-content:center;font-size:12px;color:#777">NO IMAGE</div>`
-  const blur = p.is_sensitive ? 'filter:blur(6px) brightness(.7);' : ''
+  const img=p.media?.[0]
+  if(!img)return `<div class="prop-cover" style="display:flex;align-items:center;justify-content:center;font-size:12px;color:#777">NO IMAGE</div>`
+  const blur=p.is_sensitive?'filter:blur(6px) brightness(.7);':''
   return `<img class="prop-cover" src="${img}" alt="${escapeHtml(localized(p.title))}" loading="lazy" decoding="async" style="${blur}">`
 }
-
 export function renderProperties(){
-  const f = getFilters()
-  const list = filterAndSort(properties, f)
-  const grid = document.getElementById('propertiesGrid')
-  const noRes = document.getElementById('noResults')
-  if(!list.length){
-    grid.innerHTML=''
-    noRes.style.display='block'
-    return
-  }
+  const f=getFilters()
+  const list=filterAndSort(properties,f)
+  const grid=document.getElementById('propertiesGrid')
+  const noRes=document.getElementById('noResults')
+  if(!list.length){grid.innerHTML='';noRes.style.display='block';return}
   noRes.style.display='none'
-  grid.innerHTML = list.map(p=>{
+  grid.innerHTML=list.map(p=>{
     const fav=isFavorite(p.id)
     return `
       <article class="prop-card" data-id="${p.id}">
@@ -150,8 +129,7 @@ export function renderProperties(){
             <div>${formatAreaVerbose(p)}</div>
           </div>
           <div class="badges">
-            ${statusBadge(p.status)}
-            ${tagsLine(p)}
+            ${statusBadge(p.status)}${tagsLine(p)}
           </div>
           ${zoningMarkup(p)}
           <div class="prop-actions">
@@ -161,21 +139,15 @@ export function renderProperties(){
             </button>
           </div>
         </div>
-      </article>
-    `
+      </article>`
   }).join('')
-
-  // Events
   grid.querySelectorAll('[data-fav]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      toggleFavorite(btn.getAttribute('data-fav'))
-      renderProperties()
-    })
+    btn.addEventListener('click',()=>{toggleFavorite(btn.getAttribute('data-fav'));renderProperties()})
   })
   grid.querySelectorAll('[data-detail]').forEach(btn=>{
-    btn.addEventListener('click', ()=>openDetail(btn.getAttribute('data-detail')))
+    btn.addEventListener('click',()=>openDetail(btn.getAttribute('data-detail')))
   })
   grid.querySelectorAll('[data-share]').forEach(btn=>{
-    btn.addEventListener('click', ()=>openShare(btn.getAttribute('data-share')))
+    btn.addEventListener('click',()=>openShare(btn.getAttribute('data-share')))
   })
 }
