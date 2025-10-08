@@ -13,7 +13,6 @@ export const translations = {
     'form.name':'ชื่อ','form.phone':'เบอร์โทร','form.email':'อีเมล','form.message':'ข้อความ','form.submit':'ส่ง',
     'form.pdpa':'ข้าพเจ้ายินยอมตามนโยบายความเป็นส่วนตัว','form.success':'ส่งข้อมูลสำเร็จ','form.fail':'กรอกข้อมูลไม่ครบ',
     'area.tooltip':'1 ไร่ = 4 งาน = 400 ตร.วา; 1 ตร.วา = 4 ตร.ม.',
-    /* NEW: About / Units / Zoning legend */
     'about.title':'เกี่ยวกับ NextPlot',
     'about.desc':'NextPlot เป็นแพลตฟอร์มอสังหาริมทรัพย์ครบวงจร สำหรับการซื้อ-ขาย-เช่า และฝากขายที่ดิน บ้าน อาคารพาณิชย์ โกดัง โรงงาน',
     'about.feature.search':'ระบบค้นหาขั้นสูง',
@@ -27,18 +26,7 @@ export const translations = {
     'units.convert':'การแปลงหน่วย',
     'units.convert.rai':'1 ไร่ = 1,600 ตร.ม.',
     'units.convert.ngan':'1 งาน = 400 ตร.ม.',
-    'units.convert.wah':'1 ตร.วา = 4 ตร.ม.',
-    'zoning.legend':'สีผังเมือง',
-    'zoning.yellow':'ที่อยู่อาศัยหนาแน่นน้อย',
-    'zoning.orange':'ที่อยู่อาศัยหนาแน่นปานกลาง',
-    'zoning.red':'ที่อยู่อาศัยหนาแน่นมาก / พาณิชยกรรม',
-    'zoning.green':'อนุรักษ์เพื่อการอยู่อาศัย',
-    'zoning.brown':'พาณิชยกรรมและที่อยู่อาศัยหนาแน่นสูง',
-    'zoning.purple':'อุตสาหกรรม',
-    'zoning.violet':'อุตสาหกรรมและคลังสินค้า',
-    'zoning.pink':'คลังสินค้า',
-    'zoning.blue':'อุตสาหกรรมและพาณิชย์',
-    'zoning.note.tip':'ใช้เพื่อประกอบการพิจารณาเบื้องต้นเท่านั้น'
+    'units.convert.wah':'1 ตร.วา = 4 ตร.ม.'
   },
   en: {
     'nav.properties':'Properties','nav.contact':'Contact','nav.landsmaps':'LandsMaps','nav.login':'Login',
@@ -54,7 +42,6 @@ export const translations = {
     'form.name':'Name','form.phone':'Phone','form.email':'Email','form.message':'Message','form.submit':'Submit',
     'form.pdpa':'I consent to the privacy policy','form.success':'Submitted','form.fail':'Incomplete form',
     'area.tooltip':'1 Rai = 4 Ngan = 400 Sq.wah; 1 Sq.wah = 4 Sq.m.',
-    /* NEW */
     'about.title':'About NextPlot',
     'about.desc':'NextPlot is an integrated real estate platform for listing, selling, renting & consigning land, houses, commercial assets, warehouses and factories.',
     'about.feature.search':'Advanced search system',
@@ -68,18 +55,7 @@ export const translations = {
     'units.convert':'Conversions',
     'units.convert.rai':'1 Rai = 1,600 Sq.m.',
     'units.convert.ngan':'1 Ngan = 400 Sq.m.',
-    'units.convert.wah':'1 Sq.wah = 4 Sq.m.',
-    'zoning.legend':'Zoning Legend',
-    'zoning.yellow':'Low-density residential',
-    'zoning.orange':'Medium-density residential',
-    'zoning.red':'High-density / commercial core',
-    'zoning.green':'Conservation residential',
-    'zoning.brown':'High-density mixed commercial',
-    'zoning.purple':'Industrial',
-    'zoning.violet':'Industrial & warehouse',
-    'zoning.pink':'Warehouse',
-    'zoning.blue':'Industrial & commercial',
-    'zoning.note.tip':'Indicative only – verify with official plan'
+    'units.convert.wah':'1 Sq.wah = 4 Sq.m.'
   },
   zh: {
     'nav.properties':'房产','nav.contact':'联系','nav.landsmaps':'LandsMaps','nav.login':'登录',
@@ -95,7 +71,6 @@ export const translations = {
     'form.name':'姓名','form.phone':'电话','form.email':'邮箱','form.message':'留言','form.submit':'提交',
     'form.pdpa':'我同意隐私政策','form.success':'提交成功','form.fail':'表单不完整',
     'area.tooltip':'1莱=4岸=400平方哇；1平方哇=4平方米',
-    /* NEW */
     'about.title':'关于 NextPlot',
     'about.desc':'NextPlot 是综合房地产平台，覆盖土地/住宅/商业/仓库/工厂的挂牌、出售、出租与寄售。',
     'about.feature.search':'高级搜索系统',
@@ -109,17 +84,6 @@ export const translations = {
     'units.convert':'换算',
     'units.convert.rai':'1莱 = 1600 平方米',
     'units.convert.ngan':'1岸 = 400 平方米',
-    'units.convert.wah':'1平方哇 = 4 平方米',
-    'zoning.legend':'区划图例',
-    'zoning.yellow':'低密度住宅',
-    'zoning.orange':'中密度住宅',
-    'zoning.red':'高密度 / 商业核心',
-    'zoning.green':'保护型住宅',
-    'zoning.brown':'高密度混合商业',
-    'zoning.purple':'工业',
-    'zoning.violet':'工业+仓储',
-    'zoning.pink':'仓储',
-    'zoning.blue':'工业+商业',
-    'zoning.note.tip':'仅供参考，需官方核实'
+    'units.convert.wah':'1平方哇 = 4 平方米'
   }
 }
