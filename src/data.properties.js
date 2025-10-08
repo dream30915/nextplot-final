@@ -1,5 +1,5 @@
 // Seed data (6 properties: NP006 + NP001..NP005)
-export let properties = [
+export let properties = [ /* ---- เหมือนที่คุณมี (ยกมาเต็ม) ---- */ 
   {
     id:'NP006',code:'NP006',
     title:{ th:'ที่ดินบางนา กรุงเทพมหานคร 2 ไร่ 2 งาน', en:'Bangna Bangkok Land 2 Rai 2 Ngan', zh:'曼谷邦纳土地 2 莱 2 岸' },
