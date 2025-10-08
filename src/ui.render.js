@@ -71,40 +71,6 @@ export function filterAndSort(list, f){
   return arr
 }
 
-function zoningLine(p){
-  if(!p.zoning) return ''
-  const zName = escapeHtml(p.zoning[currentLang] || p.zoning.th)
-  const note = p.zoning.note ? escapeHtml(p.zoning.note[currentLang]||p.zoning.note.th) : ''
-  return `
-    <div class="prop-zoning" title="${note?zName+': '+note:zName}">
-      <span class="prop-zoning__swatch" style="background:${p.zoning.color}"></span>
-      <span class="prop-zoning__text">${zName}</span>
-    </div>
-  `
-}
-
-function buildStatusBadge(status){
-  const map = {
-    available:{ th:'ว่าง', en:'Available', zh:'可售', cls:'status-available' },
-    reserved:{ th:'จอง', en:'Reserved', zh:'预订', cls:'status-reserved' },
-    sold:{ th:'ขายแล้ว', en:'Sold', zh:'已售', cls:'status-sold' }
-  }
-  const data = map[status]
-  if(!data) return ''
-  return `<span class="badge ${data.cls}" data-status="${status}">${data[currentLang]||data.th}</span>`
-}
-
-function buildTags(p){
-  return p.tags[currentLang].slice(0,3).map(tag=>`<span class="badge badge--tag">${escapeHtml(tag)}</span>`).join('')
-}
-
-function coverHTML(p){
-  const img = p.media?.[0]
-  if(!img) return `<div class="prop-cover prop-cover--empty">NO IMAGE</div>`
-  const blur = p.is_sensitive ? 'filter:blur(6px) brightness(.7);' : ''
-  return `<picture class="prop-cover"><img src="${img}" alt="${escapeHtml(localized(p.title))}" loading="lazy" decoding="async" style="${blur}"></picture>`
-}
-
 function formatAreaVerbose(p){
   const lang = currentLang
   const rai = Math.floor(p.areaRai)
@@ -125,6 +91,37 @@ function formatAreaVerbose(p){
   return `${parts.join(' ')} (${sqm.toLocaleString()} ${wSqm})`
 }
 
+function zoningMarkup(p){
+  if(!p.zoning) return ''
+  const name = escapeHtml(p.zoning[currentLang]||p.zoning.th)
+  const note = p.zoning.note ? escapeHtml(p.zoning.note[currentLang]||p.zoning.note.th) : ''
+  return `<div class="prop-zoning" title="${note?name+': '+note:name}">
+    <span class="sw" style="background:${p.zoning.color}"></span>
+    <span>${name}</span>
+  </div>`
+}
+
+function statusBadge(status){
+  const map={
+    available:{th:'ว่าง',en:'Available',zh:'可售',cls:'status-available'},
+    reserved:{th:'จอง',en:'Reserved',zh:'预订',cls:'status-reserved'},
+    sold:{th:'ขายแล้ว',en:'Sold',zh:'已售',cls:'status-sold'}
+  }
+  const d = map[status]; if(!d) return ''
+  return `<span class="badge ${d.cls}">${d[currentLang]||d.th}</span>`
+}
+
+function tagsLine(p){
+  return p.tags[currentLang].slice(0,3).map(tag=>`<span class="badge badge--tag">${escapeHtml(tag)}</span>`).join('')
+}
+
+function cover(p){
+  const img = p.media?.[0]
+  if(!img) return `<div class="prop-cover" style="display:flex;align-items:center;justify-content:center;font-size:12px;color:#777">NO IMAGE</div>`
+  const blur = p.is_sensitive ? 'filter:blur(6px) brightness(.7);' : ''
+  return `<img class="prop-cover" src="${img}" alt="${escapeHtml(localized(p.title))}" loading="lazy" decoding="async" style="${blur}">`
+}
+
 export function renderProperties(){
   const f = getFilters()
   const list = filterAndSort(properties, f)
@@ -137,39 +134,41 @@ export function renderProperties(){
   }
   noRes.style.display='none'
   grid.innerHTML = list.map(p=>{
-    const fav = isFavorite(p.id)
+    const fav=isFavorite(p.id)
     return `
-      <article class="card prop-card" data-id="${p.id}">
-        ${coverHTML(p)}
-        <button class="favorite-btn ${fav?'active':''}" data-fav="${p.id}" aria-label="${favAria(p.id)}">${fav?'★':'☆'}</button>
-        <div class="prop-card__body">
-          <header class="prop-card__head">
-            <div class="prop-code" aria-label="Code ${p.code}">${p.code}</div>
+      <article class="prop-card" data-id="${p.id}">
+        ${cover(p)}
+        <button class="prop-fav ${fav?'active':''}" data-fav="${p.id}" aria-label="${favAria(p.id)}">${fav?'❤':'♡'}</button>
+        <div class="prop-body">
+          <div class="prop-head">
+            <div class="prop-code">${p.code}</div>
             <h3 class="prop-title">${escapeHtml(localized(p.title))}</h3>
-          </header>
-          <div class="meta">
-            <span><strong>${t('property.price')}</strong>: ${formatPrice(p)}</span>
-            <span><strong>${t('property.area')}</strong>: ${formatAreaVerbose(p)}</span>
-            <span><strong>${t('property.zoning')}</strong>: ${escapeHtml(p.zoning[currentLang]||p.zoning.th)}</span>
+            <div class="prop-location">${escapeHtml(localized(p.location))}</div>
+          </div>
+          <div class="prop-meta">
+            <div class="prop-price">${formatPrice(p)}</div>
+            <div>${formatAreaVerbose(p)}</div>
           </div>
           <div class="badges">
-            ${buildStatusBadge(p.status)}
-            ${buildTags(p)}
+            ${statusBadge(p.status)}
+            ${tagsLine(p)}
           </div>
-          ${zoningLine(p)}
-          <div class="actions">
-            <button data-detail="${p.id}" aria-label="View ${escapeHtml(localized(p.title))}">${t('property.viewDetails')}</button>
-            <button data-share="${p.id}" aria-label="Share ${escapeHtml(localized(p.title))}">${t('property.share')}</button>
+          ${zoningMarkup(p)}
+          <div class="prop-actions">
+            <button class="prop-detail-btn" data-detail="${p.id}">${t('property.viewDetails')}</button>
+            <button class="prop-share-btn" data-share="${p.id}" aria-label="Share ${escapeHtml(localized(p.title))}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5a2.5 2.5 0 1 1 .002 5.002A2.5 2.5 0 0 1 15.5 5m-7 4a2.5 2.5 0 1 1-.001-5.001A2.5 2.5 0 0 1 8.5 9m7 6a2.5 2.5 0 1 1 .002 5.002A2.5 2.5 0 0 1 15.5 15m-6.062-4.25 4.926 2.465-.45.895-4.925-2.465.45-.895Zm4.922-4.856-.45.893-4.692-2.367.45-.893 4.692 2.367Zm.006 9.727.446.895-4.922 2.46-.446-.894 4.922-2.46Z"/></svg>
+            </button>
           </div>
         </div>
       </article>
     `
   }).join('')
 
+  // Events
   grid.querySelectorAll('[data-fav]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const id = btn.getAttribute('data-fav')
-      toggleFavorite(id)
+      toggleFavorite(btn.getAttribute('data-fav'))
       renderProperties()
     })
   })
