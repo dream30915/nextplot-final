@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8" />
-<title>NextPlot Modular</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="NextPlot Multi-file Modular Version" />
-<link rel="stylesheet" href="style.css" />
-<link rel="canonical" href="https://dream30915.github.io/nextplot-final/">
-<meta name="theme-color" content="#2E2E2E">
+  <meta charset="utf-8" />
+  <title>NextPlot Modular</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="NextPlot Multi-file Modular Version" />
+  <link rel="canonical" href="https://dream30915.github.io/nextplot-final/">
+  <meta name="theme-color" content="#2E2E2E">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <a href="#main" class="skip-link">ข้ามไปเนื้อหา</a>
@@ -15,14 +15,14 @@
 <header class="site-header">
   <div class="header-row">
     <div class="brand">
-      <div class="brand-logo">NP</div>
+      <div class="brand-logo" aria-label="NextPlot logo">NP</div>
       <div class="brand-text">
         <div class="brand-name">NextPlot</div>
         <div class="brand-tagline">PLOT FOR SALE</div>
       </div>
     </div>
     <div class="top-controls">
-      <div id="langSwitch" class="lang-switch"></div>
+      <div id="langSwitch" class="lang-switch" aria-label="Language switch"></div>
       <button id="themeBtn" class="btn-ghost" aria-label="Toggle Theme">🌙</button>
       <button id="authBtn" class="btn-outline" data-i18n="nav.login">เข้าสู่ระบบ</button>
     </div>
@@ -35,7 +35,9 @@
 </header>
 
 <section class="hero">
-  <h1 data-i18n="hero.title">บริการซื้อ‑ขาย‑เช่า  และ  ขายฝาก  รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร</h1>
+  <h1 data-i18n="hero.title">
+    บริการซื้อ‑ขาย‑เช่า  และ  ขายฝาก  รับจัดหาที่ดินตามความต้องการทั่วราชอาณาจักร
+  </h1>
   <p class="hero-desc" data-i18n="hero.description">
     บ้าน  อาคารพาณิช  ที่ดิน โกดัง โรงงาน พร้อมฟีเจอร์แชร์ง่ายหลายช่องทาง ปลอดภัย เข้าถึงได้ ฟอร์มลูกค้า (PDPA) และระบบขอเอกสารแบบ Soft Gate
   </p>
@@ -49,7 +51,7 @@
   <section id="filtersSection">
     <div class="filters">
       <input id="fKeyword" placeholder="ค้นหา..." data-i18n-ph="search.placeholder" aria-label="Keyword search">
-      <input id="fLocation" placeholder="ทำเล" data-i18n-ph="filter.location" aria-label="Location filter">
+      <input id="fLocation" placeholder="ทำเล" data-i18n-ph="filter.location" aria-label="Location">
       <input id="fPriceMin" placeholder="ราคาต่ำสุด" type="number" data-i18n-ph="filter.priceMin" aria-label="Min price">
       <input id="fPriceMax" placeholder="ราคาสูงสุด" type="number" data-i18n-ph="filter.priceMax" aria-label="Max price">
       <input id="fAreaMin" placeholder="พื้นที่ต่ำสุด (ไร่)" type="number" data-i18n-ph="filter.areaMin" aria-label="Min area">
@@ -82,103 +84,27 @@
     <div id="leadFormContainer"></div>
   </section>
 
-  <!-- BEGIN New Gold Panels Section -->
+  <!-- Info / About / Units / (Zoning legend can be re-enabled if needed) -->
   <section class="info-panels" aria-label="Information panels">
     <div class="panels-grid">
-      <!-- Zoning Legend Panel -->
-      <article class="gold-panel" aria-labelledby="zoningLegendHeading">
-        <h3 id="zoningLegendHeading" data-i18n="zoning.legend">สีผังเมือง</h3>
-        <ul class="zoning-legend" id="zoningLegendList" aria-describedby="zoningLegendNote">
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#FFC61A"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.yellow">ที่อยู่อาศัยหนาแน่นน้อย</div>
-              <div class="zoning-note">≤ ความสูงอาคารจำกัด บรรยากาศสงบ</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#E67E22"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.orange">ที่อยู่อาศัยหนาแน่นปานกลาง</div>
-              <div class="zoning-note">ผสมบ้านเดี่ยว/ทาวน์โฮม</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#D32626"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.red">ที่อยู่อาศัยหนาแน่นมาก / พาณิชยกรรม</div>
-              <div class="zoning-note">เหมาะโครงการเชิงพาณิชย์</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#218838"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.green">อนุรักษ์เพื่อการอยู่อาศัย</div>
-              <div class="zoning-note">พื้นที่สีเขียว / ชุมชน</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#8B4513"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.brown">พาณิชยกรรมและที่อยู่อาศัยหนาแน่นสูง</div>
-              <div class="zoning-note">ศูนย์รวมกิจกรรมเมือง</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#6F42C1"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.purple">อุตสาหกรรม</div>
-              <div class="zoning-note">โรงงานหลัก</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#7E57C2"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.violet">อุตสาหกรรมและคลังสินค้า</div>
-              <div class="zoning-note">ผสมโลจิสติกส์</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#FF9AD5"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.pink">คลังสินค้า</div>
-              <div class="zoning-note">ศูนย์กระจายสินค้า</div>
-            </div>
-          </li>
-          <li class="zoning-item">
-            <span class="zoning-swatch" style="background:#1496FF"></span>
-            <div>
-              <div class="zoning-name" data-i18n="zoning.blue">อุตสาหกรรมและพาณิชย์</div>
-              <div class="zoning-note">สนับสนุนเชิงธุรกิจ</div>
-            </div>
-          </li>
-        </ul>
-        <small id="zoningLegendNote" data-i18n="zoning.note.tip">ใช้เพื่อประกอบการพิจารณาเบื้องต้นเท่านั้น</small>
-      </article>
-
-      <!-- About Panel -->
-      <article class="gold-panel" aria-labelledby="aboutPanelHeading">
-        <h3 id="aboutPanelHeading" data-i18n="about.title">เกี่ยวกับ NextPlot</h3>
-        <p data-i18n="about.desc">
-          NextPlot เป็นแพลตฟอร์มอสังหาริมทรัพย์ครบวงจร สำหรับการซื้อ-ขาย-เช่า และฝากขายที่ดิน บ้าน อาคารพาณิชย์ โกดัง โรงงาน
-        </p>
+      <article class="gold-panel">
+        <h3 data-i18n="about.title">เกี่ยวกับ NextPlot</h3>
+        <p data-i18n="about.desc">NextPlot เป็นแพลตฟอร์มอสังหาริมทรัพย์ครบวงจร ...</p>
         <ul>
           <li data-i18n="about.feature.search">ระบบค้นหาขั้นสูง</li>
           <li data-i18n="about.feature.share">แชร์ได้หลายช่องทาง</li>
           <li data-i18n="about.feature.pdpa">ฟอร์ม PDPA ครบถ้วน</li>
         </ul>
       </article>
-
-      <!-- Units Panel -->
-      <article class="gold-panel" aria-labelledby="unitsPanelHeading">
-        <h3 id="unitsPanelHeading" data-i18n="units.title">คู่มือหน่วยพื้นที่</h3>
+      <article class="gold-panel">
+        <h3 data-i18n="units.title">คู่มือหน่วยพื้นที่</h3>
         <p data-i18n="units.th.rule">หน่วยวัดที่ดินไทย</p>
         <ul>
           <li data-i18n="units.rai">1 ไร่ = 4 งาน = 400 ตร.วา</li>
           <li data-i18n="units.ngan">1 งาน = 100 ตร.วา</li>
           <li data-i18n="units.wah">1 ตร.วา = 4 ตร.ม.</li>
         </ul>
-        <p style="margin-top:22px;font-weight:600;" data-i18n="units.convert">การแปลงหน่วย</p>
+        <p style="margin-top:18px;font-weight:600;" data-i18n="units.convert">การแปลงหน่วย</p>
         <ul>
           <li data-i18n="units.convert.rai">1 ไร่ = 1,600 ตร.ม.</li>
           <li data-i18n="units.convert.ngan">1 งาน = 400 ตร.ม.</li>
@@ -187,8 +113,6 @@
       </article>
     </div>
   </section>
-  <!-- END New Gold Panels Section -->
-
 </main>
 
 <footer class="site-footer">
@@ -210,17 +134,15 @@
     <div>
       <h4 class="footer-head">สถานะ</h4>
       <p class="footer-desc">
-        <span style="display:inline-block;width:8px;height:8px;background:#3BB273;border-radius:50%;margin-right:6px;"></span>Online<br>
-        Modular Build
+        <span style="display:inline-block;width:8px;height:8px;background:#3BB273;border-radius:50%;margin-right:6px;"></span>
+        Online<br>Modular Build
       </p>
     </div>
   </div>
   <small>© <span id="year"></span> NextPlot</small>
 </footer>
 
-<!-- Modal root -->
 <div id="modalRoot"></div>
-
 <script type="module" src="src/main.js"></script>
 </body>
 </html>
