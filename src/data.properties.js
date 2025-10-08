@@ -1,5 +1,38 @@
-// Seed data (5 properties) with multilingual fields + zoning metadata
+// Added NP006 (Bangna) for visual parity with mock + previous 5
 export const properties = [
+  {
+    id:'NP006',
+    code:'NP006',
+    title:{
+      th:'ที่ดินบางนา กรุงเทพมหานคร 2 ไร่ 2 งาน',
+      en:'Bangna Bangkok Land 2 Rai 2 Ngan',
+      zh:'曼谷邦纳土地 2 莱 2 岸'
+    },
+    location:{
+      th:'บางนา กรุงเทพมหานคร',
+      en:'Bangna, Bangkok',
+      zh:'曼谷 邦纳'
+    },
+    price:15000000,
+    currency:'THB',
+    areaRai:2.5,           // 2 ไร่ 2 งาน = 2.5 ไร่
+    areaSqm:2.5*1600,
+    status:'available',
+    zoning:{
+      th:'สีเหลือง', en:'Yellow', zh:'黄色',
+      color:'#FFD700',
+      note:{ th:'ที่อยู่อาศัยหนาแน่นน้อย', en:'Low density residential', zh:'低密度住宅' }
+    },
+    tags:{
+      th:['ใกล้ถนนใหญ่','เหมาะลงทุน','โฉนดพร้อม'],
+      en:['Near main road','Investment','Title deed'],
+      zh:['临主路','投资','产权证']
+    },
+    media:[
+      'https://images.unsplash.com/photo-1464822759844-d150ad6082ba?w=800&auto=format&fit=crop&q=70',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop&q=70'
+    ]
+  },
   {
     id:'NP001',
     code:'NP001',
@@ -13,11 +46,7 @@ export const properties = [
       color:'#FFC0CB',
       note:{ th:'คลังสินค้า / โลจิสติกส์', en:'Warehouse / Logistics', zh:'仓储 / 物流' }
     },
-    tags:{
-      th:['ลงทุน','ใกล้ถนนใหญ่'],
-      en:['Investment','Near main road'],
-      zh:['投资','临主路']
-    },
+    tags:{ th:['ลงทุน','ใกล้ถนนใหญ่'], en:['Investment','Near main road'], zh:['投资','临主路'] },
     media:[
       'https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?w=800&auto=format&fit=crop&q=70',
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&auto=format&fit=crop&q=70'
